@@ -7,10 +7,10 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  padding: 35px;
+  padding: 15px;
 
   h1 {
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
     color: #eee;
   }
 
@@ -24,24 +24,43 @@ export const Container = styled.div`
   .rec.rec-pagination {
     visibility: hidden;
   }
+
+  .rec.rec-item-wrapper {
+    height: 600px;
+    align-items: center;
+  }
 `
 
-export const ContainerSeries = styled.div`
-  /* display: flex; */
-`
+export const ContainerSeries = styled.div``
 
 export const Image = styled.img`
   width: 100%;
-  box-shadow: 0px 0px 5px 2px #eee;
+  margin-bottom: 1rem;
 `
 export const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  border: solid 2px #110d0de8;
+  background-color: #13101075;
+  box-shadow: 0px 0px 8px 0px #131515;
   overflow: hidden;
   border-radius: 10px;
-  height: 100%;
-  width: 200px;
+  width: 250px;
+  text-align: center;
+
+  h2 {
+    font-size: 1rem;
+    color: #f4e2e2;
+    margin-bottom: 1rem;
+  }
 
   p {
-    text-align: center;
     color: #eee;
+  }
+
+  svg {
+    color: #f6be1e;
   }
 `

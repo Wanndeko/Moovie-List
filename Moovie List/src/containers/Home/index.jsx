@@ -12,7 +12,7 @@ function Home() {
       const {
         data: { results }
       } = await api.get('/movie/popular')
-
+      console.log(results)
       setMovies(results[0])
     }
     getApiMovies()

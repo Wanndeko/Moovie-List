@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Carousel from 'react-elastic-carousel'
+import { BsFillStarFill } from 'react-icons/bs'
 
 import api from '../../services/api'
 import { Container, Image, ContainerSeries, Card } from './style'
@@ -37,7 +38,11 @@ function CarouselSeries() {
                 <Image
                   src={`https://image.tmdb.org/t/p/original${serie.poster_path}`}
                 />
-                <p>{serie.name}</p>
+                <h2>{serie.name}</h2>
+                <p>
+                  Média de votos: <BsFillStarFill />
+                  {serie.vote_average}
+                </p>
               </Card>
             </ContainerSeries>
           ))}
