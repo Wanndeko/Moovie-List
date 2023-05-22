@@ -13,6 +13,10 @@ export const LogoHeader = styled.p`
   font-size: 3rem;
   color: #eee;
   transform: skew(25deg);
+
+  @media (max-width: 740px) {
+    font-size: 2rem;
+  }
 `
 
 export const BtnsHeader = styled.div`
