@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import Button from '../../components/Button'
-import CarouselSeries from '../../components/SeriesCarousel'
 import api from '../../services/api'
 import { Background, Info, Poster, Container, ButtonsContainer } from './styles'
 function Series() {
@@ -43,7 +42,6 @@ function Series() {
           </Container>
         </Background>
       )}
-      <CarouselSeries />
     </>
   )
 }

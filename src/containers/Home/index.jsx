@@ -1,20 +1,30 @@
 import { useEffect, useState } from 'react'
 
 import Button from '../../components/Button'
-import CarroelMovies from '../../components/MoviesCarousel'
 import api from '../../services/api'
 import { Background, Info, Poster, Container, ButtonsContainer } from './styles'
 function Home() {
   const [movies, setMovies] = useState()
+  const [topRatedMovies, setTopRatedMovies] = useState()
 
   useEffect(() => {
     async function getApiMovies() {
       const {
         data: { results }
       } = await api.get('/movie/popular')
-      console.log(results)
+      // console.log(results)
       setMovies(results[0])
     }
+
+    async function getTopMovies() {
+      const {
+        data: { results }
+      } = await api.get('/movie/top_rated')
+      console.log(results)
+      setTopRatedMovies(results[0])
+    }
+
+    getTopMovies()
     getApiMovies()
   }, [])
 
@@ -43,7 +53,6 @@ function Home() {
           </Container>
         </Background>
       )}
-      <CarroelMovies />
     </>
   )
 }
