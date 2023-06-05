@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react'
 
 import Button from '../../components/Button'
+import Slider from '../../components/Slider'
 import api from '../../services/api'
+import { getImages } from '../../utils/getImages'
 import { Background, Info, Poster, Container, ButtonsContainer } from './styles'
 function Home() {
   const [movies, setMovies] = useState()
   const [topRatedMovies, setTopRatedMovies] = useState()
+  const [topSeries, setTopSeries] = useState()
+  const [popularSeries, setPopularSeries] = useState()
+  const [personPopular, setPersonPopular] = useState()
 
   useEffect(() => {
     async function getApiMovies() {
       const {
         data: { results }
       } = await api.get('/movie/popular')
-      // console.log(results)
+
       setMovies(results[0])
     }
 
@@ -20,10 +25,36 @@ function Home() {
       const {
         data: { results }
       } = await api.get('/movie/top_rated')
-      console.log(results)
-      setTopRatedMovies(results[0])
+
+      setTopRatedMovies(results)
     }
 
+    async function getApiSeries() {
+      const {
+        data: { results }
+      } = await api.get('/tv/top_rated')
+
+      setTopSeries(results)
+    }
+
+    async function getPopularSeries() {
+      const {
+        data: { results }
+      } = await api.get('/tv/popular')
+
+      setPopularSeries(results)
+    }
+    async function getPerson() {
+      const {
+        data: { results }
+      } = await api.get('/person/popular')
+      console.log(results)
+      setPersonPopular(results)
+    }
+
+    getPerson()
+    getPopularSeries()
+    getApiSeries()
     getTopMovies()
     getApiMovies()
   }, [])
@@ -31,9 +62,7 @@ function Home() {
   return (
     <>
       {movies && (
-        <Background
-          img={`https://image.tmdb.org/t/p/original${movies.backdrop_path}`}
-        >
+        <Background img={getImages(movies.backdrop_path)}>
           <Container>
             <Info>
               <h1>{movies.title}</h1>
@@ -45,14 +74,17 @@ function Home() {
             </Info>
 
             <Poster>
-              <img
-                src={`https://image.tmdb.org/t/p/original${movies.poster_path}`}
-                alt="poster do filme"
-              />
+              <img src={getImages(movies.poster_path)} alt="poster do filme" />
             </Poster>
           </Container>
         </Background>
       )}
+      {topRatedMovies && <Slider info={topRatedMovies} title={'Top Filmes'} />}
+      {topSeries && <Slider info={topSeries} title={'Top series'} />}
+      {popularSeries && (
+        <Slider info={popularSeries} title={'Popular series'} />
+      )}
+      {personPopular && <Slider info={personPopular} title={'agens'} />}
     </>
   )
 }
