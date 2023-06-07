@@ -67,7 +67,7 @@ export const ButtonsContainer = styled.div`
 
 export const Poster = styled.div`
   img {
-    width: 340px;
+    width: 360px;
     border-radius: 10px;
     box-shadow: 0px -2px 8px 0px #05070885;
 

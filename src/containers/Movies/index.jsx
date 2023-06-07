@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import Button from '../../components/Button'
-import Modal from '../../components/Modal'
 import Slider from '../../components/Slider'
 import api from '../../services/api'
 import { getImages } from '../../utils/getImages'
 import { Background, Info, Poster, Container, ButtonsContainer } from './styles'
 function Home() {
   const [movies, setMovies] = useState()
-  const [showModal, setShowModal] = useState(false)
   const [topRatedMovies, setTopRatedMovies] = useState()
   const [topSeries, setTopSeries] = useState()
   const [popularSeries, setPopularSeries] = useState()
   const [personPopular, setPersonPopular] = useState()
-  const navigate = useNavigate()
 
   useEffect(() => {
     async function getApiMovies() {
@@ -22,7 +18,7 @@ function Home() {
         data: { results }
       } = await api.get('/movie/popular')
 
-      setMovies(results[1])
+      setMovies(results[0])
     }
 
     async function getTopMovies() {
@@ -48,7 +44,6 @@ function Home() {
 
       setPopularSeries(results)
     }
-
     async function getPerson() {
       const {
         data: { results }
@@ -68,25 +63,13 @@ function Home() {
     <>
       {movies && (
         <Background img={getImages(movies.backdrop_path)}>
-          {showModal && (
-            <Modal movieId={movies.id} setShowModal={setShowModal} />
-          )}
           <Container>
             <Info>
               <h1>{movies.title}</h1>
               <p>{movies.overview}</p>
               <ButtonsContainer>
-                <Button
-                  red
-                  onClick={() => {
-                    navigate(`/detalhe/${movies.id}`)
-                  }}
-                >
-                  Assita Agora
-                </Button>
-                <Button onClick={() => setShowModal(true)}>
-                  Assita o trailer
-                </Button>
+                <Button red>Assita Agora</Button>
+                <Button>Assita o trailer</Button>
               </ButtonsContainer>
             </Info>
 

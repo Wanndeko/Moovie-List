@@ -1,26 +1,36 @@
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
-import { LogoHeader, BtnHeader, HeaderContainer, BtnsHeader } from './style'
+import LogoHeader from '../../assets/logo.png'
+import { HeaderContainer, Menu, Li } from './style'
 
 function Header() {
-  const navigate = useNavigate()
+  const [backgroundHeader, setBackgroundHeader] = useState(false)
 
-  function goToMovies() {
-    navigate('/')
-  }
-  function goToSeries() {
-    navigate('/series')
+  const { pathname } = useLocation()
+
+  window.onscroll = () => {
+    if (window.pageYOffset > 100) {
+      setBackgroundHeader(true)
+    } else {
+      setBackgroundHeader(false)
+    }
   }
 
   return (
-    <HeaderContainer>
-      <LogoHeader>Moovie List</LogoHeader>
-      <BtnsHeader>
-        <BtnHeader movies onClick={goToMovies}>
-          Filmes
-        </BtnHeader>
-        <BtnHeader onClick={goToSeries}>Series</BtnHeader>
-      </BtnsHeader>
+    <HeaderContainer changeColor={backgroundHeader}>
+      <img src={LogoHeader} />
+      <Menu>
+        <Li isActive={pathname === '/'}>
+          <Link to="/">Home</Link>
+        </Li>
+        <Li isActive={pathname.includes('movies')}>
+          <Link to="/movies">Filmes</Link>
+        </Li>
+        <Li isActive={pathname.includes('series')}>
+          <Link to="/series">Series</Link>
+        </Li>
+      </Menu>
     </HeaderContainer>
   )
 }

@@ -1,55 +1,49 @@
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
+  z-index: 5;
   position: fixed;
-  z-index: 4;
+  top: 0;
+  padding: 5px 50px;
   display: flex;
   justify-content: space-between;
-  padding: 5px;
-  width: 100%;
-`
-
-export const LogoHeader = styled.p`
-  font-size: 3rem;
-  color: #eee;
-  transform: skew(25deg);
-
-  @media (max-width: 740px) {
-    font-size: 2rem;
+  align-items: center;
+  min-height: 100px;
+  img {
+    width: 30%;
   }
+
+  background-color: ${(props) => (props.changeColor ? '#000' : 'transparent')};
+  transition: background-color ease 0.5s;
 `
 
-export const BtnsHeader = styled.div`
+export const Menu = styled.ul`
   display: flex;
-  gap: 25px;
-
-  padding: 10px;
+  list-style: none;
+  gap: 40px;
 `
 
-export const BtnHeader = styled.button`
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1em;
+export const Li = styled.li`
+  font-weight: 600;
+  font-size: 25px;
   position: relative;
+  a {
+    text-decoration: none;
+    color: #ffffff;
+  }
 
   &::after {
     content: '';
-    position: absolute;
+    height: 3px;
+    width: ${(props) => (props.isActive ? '100%' : 0)};
+    bottom: -10px;
     left: 0;
-    bottom: 5px;
-
-    width: 65%;
-    height: 1px;
-    background-color: #ff0000;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform ease 0.4s;
+    position: absolute;
+    background-color: #189b20;
+    transition: width ease-in-out 0.5s;
   }
 
   &:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-    transition: transform 0.4s;
+    width: 100%;
   }
 `
