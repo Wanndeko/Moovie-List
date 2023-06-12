@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AiFillCloseCircle } from 'react-icons/ai'
 
-import api from '../../services/api'
+import { getMovieVideos } from '../../services/getData'
 import { Container, Background } from './styles'
 
 function Modal({ movieId, setShowModal }) {
@@ -9,12 +9,7 @@ function Modal({ movieId, setShowModal }) {
 
   useEffect(() => {
     async function getApiMovie() {
-      const {
-        data: { results }
-      } = await api.get(`/movie/${movieId}/videos`)
-
-      setMovie(results[1])
-      console.log(results)
+      setMovie(await getMovieVideos(movieId))
     }
     getApiMovie()
   })

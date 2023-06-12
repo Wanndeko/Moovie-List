@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button'
 import Modal from '../../components/Modal'
 import Slider from '../../components/Slider'
-import api from '../../services/api'
+import {
+  getApiMovies,
+  getPerson,
+  getPopularSeries,
+  getSeries,
+  getTopMovies
+} from '../../services/getData'
 import { getImages } from '../../utils/getImages'
 import { Background, Info, Poster, Container, ButtonsContainer } from './styles'
 function Home() {
@@ -17,51 +23,33 @@ function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    async function getApiMovies() {
-      const {
-        data: { results }
-      } = await api.get('/movie/popular')
-
-      setMovies(results[1])
+    async function getAllData() {
+      Promise.all([
+        getApiMovies(),
+        getTopMovies(),
+        getSeries(),
+        getPopularSeries(),
+        getPerson()
+      ])
+        .then(
+          ([
+            getmovies,
+            getTopMovies,
+            getTopSeries,
+            getPopularSeries,
+            getPerson
+          ]) => {
+            setMovies(getmovies)
+            setTopRatedMovies(getTopMovies)
+            setTopSeries(getTopSeries)
+            setPopularSeries(getPopularSeries)
+            setPersonPopular(getPerson)
+          }
+        )
+        .catch((error) => console.error(error))
     }
 
-    async function getTopMovies() {
-      const {
-        data: { results }
-      } = await api.get('/movie/top_rated')
-
-      setTopRatedMovies(results)
-    }
-
-    async function getApiSeries() {
-      const {
-        data: { results }
-      } = await api.get('/tv/top_rated')
-
-      setTopSeries(results)
-    }
-
-    async function getPopularSeries() {
-      const {
-        data: { results }
-      } = await api.get('/tv/popular')
-
-      setPopularSeries(results)
-    }
-
-    async function getPerson() {
-      const {
-        data: { results }
-      } = await api.get('/person/popular')
-
-      setPersonPopular(results)
-    }
-
-    getPerson()
-    getPopularSeries()
-    getApiSeries()
-    getTopMovies()
-    getApiMovies()
+    getAllData()
   }, [])
 
   return (
