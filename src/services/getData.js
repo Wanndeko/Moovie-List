@@ -45,7 +45,7 @@ export async function getMovieVideos(movieId) {
     data: { results }
   } = await api.get(`/movie/${movieId}/videos`)
 
-  return results[0]
+  return results[4]
 }
 
 export async function getMovieVideo(movieId) {

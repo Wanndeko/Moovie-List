@@ -67,3 +67,30 @@ export const Info = styled.div`
   z-index: 999;
   gap: 10px;
 `
+export const ContainerMovies = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px 0;
+    gap: 10px;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  iframe {
+    border: none;
+  }
+`
