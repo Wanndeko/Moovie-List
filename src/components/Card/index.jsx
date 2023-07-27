@@ -4,7 +4,10 @@ import { Container } from './styles'
 function Card({ iten }) {
   return (
     <Container>
-      <img src={getImages(iten.poster_path || iten.profile_path)} />
+      <img
+        src={getImages(iten.poster_path || iten.profile_path)}
+        alt="fotos filme/series/atores"
+      />
       <h3>{iten.title || iten.name}</h3>
     </Container>
   )
